@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -21,7 +22,7 @@ public class Order {
     private Long id;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderItem> orderItems;
+    private List<OrderItem> orderItems = new ArrayList<>(); //para começar [] e não null
 
     private BigDecimal orderPrice;
 
