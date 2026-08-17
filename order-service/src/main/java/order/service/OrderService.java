@@ -38,7 +38,7 @@ public class OrderService {
         }
     }
 
-    private BigDecimal calculateOrderPrice(Order order) {
+    public BigDecimal calculateOrderPrice(Order order) {
         BigDecimal orderPrice = BigDecimal.ZERO;
         for(OrderItem orderItem : order.getOrderItems()) {
             orderPrice = orderPrice.add(orderItem.getPrice()
