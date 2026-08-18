@@ -1,9 +1,12 @@
 package order.dto;
 
-import order.model.OrderItem;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.util.List;
 
-//TODO Meter estado da order no DTO
-public record CreateOrderRequestDTO(List<OrderItem> orderItems) {
+public record CreateOrderRequestDTO(
+        @NotEmpty(message = "Order must contain at least one item")
+        @Valid
+        List<CreateOrderItemRequestDTO> orderItems) {
 }

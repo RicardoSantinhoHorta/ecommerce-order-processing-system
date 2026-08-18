@@ -4,6 +4,7 @@ import order.dto.CreateOrderRequestDTO;import order.dto.OrderDetailsReponseDTO;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
 import order.service.OrderService;
 
 @RestController
@@ -16,7 +17,7 @@ public class OrderController {
     }
 
     @PostMapping("/orders")
-    public OrderDetailsReponseDTO createOrder(@RequestBody CreateOrderRequestDTO request) {
+    public OrderDetailsReponseDTO createOrder(@Valid @RequestBody CreateOrderRequestDTO request) {
         return orderService.createOrder(request);
     }
 }

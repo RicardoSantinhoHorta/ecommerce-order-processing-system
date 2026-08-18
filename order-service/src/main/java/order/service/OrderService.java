@@ -1,5 +1,6 @@
 package order.service;
 
+import order.dto.CreateOrderItemRequestDTO;
 import order.dto.CreateOrderRequestDTO;
 import order.dto.OrderDetailsReponseDTO;
 import order.model.Order;
@@ -32,9 +33,16 @@ public class OrderService {
         return new OrderDetailsReponseDTO(order.getOrderPrice());
     }
 
-    private void addOrderItems(Order order, List<OrderItem> orderItems) {
-        for(OrderItem item : orderItems) {
-            order.addOrderItem(item);
+    private void addOrderItems(Order order, List<CreateOrderItemRequestDTO> orderItems) {
+        for(CreateOrderItemRequestDTO itemRequest : orderItems){
+            OrderItem orderItem = new OrderItem();
+
+            orderItem.setProductId(itemRequest.productId());
+            orderItem.setName(itemRequest.name());
+            orderItem.setPrice(itemRequest.price());
+            orderItem.setQuantity(itemRequest.quantity());
+
+            order.addOrderItem(orderItem);
         }
     }
 
