@@ -3,7 +3,7 @@ package order.service;
 import order.dto.CreateOrderItemRequestDTO;
 import order.dto.CreateOrderRequestDTO;
 import order.dto.OrderDetailsReponseDTO;
-import order.mapper.OrderMapper;
+import order.enums.OrderState;import order.mapper.OrderMapper;
 import order.model.Order;
 import order.model.OrderItem;
 import order.repository.OrderRepository;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.List;
+import java.time.LocalDateTime;import java.util.List;
 
 @Service
 public class OrderService {
@@ -30,7 +30,7 @@ public class OrderService {
         Order order = new Order();
 
         addOrderItems(order, request.orderItems());
-        order.setOrderPrice(calculateOrderPrice(order));
+        order.setOrderPrice(order.calculateOrderPrice(order));
         orderRepository.save(order);
 
         return orderMapper.toResponseDTO(order);
@@ -43,12 +43,4 @@ public class OrderService {
         }
     }
 
-    public BigDecimal calculateOrderPrice(Order order) {
-        BigDecimal orderPrice = BigDecimal.ZERO;
-        for(OrderItem orderItem : order.getOrderItems()) {
-            orderPrice = orderPrice.add(orderItem.getPrice()
-                                    .multiply(BigDecimal.valueOf(orderItem.getQuantity())));
-        }
-        return orderPrice;
-    }
 }
