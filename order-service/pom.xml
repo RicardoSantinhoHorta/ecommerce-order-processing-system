@@ -43,6 +43,12 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency> <!-- Testes ao controllers (Posts,Gets,...)-->
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webmvc-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
         <dependency> <!--Validar body de dtos -->
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
