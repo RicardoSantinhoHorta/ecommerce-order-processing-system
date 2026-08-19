@@ -3,6 +3,7 @@ package order.service;
 import order.dto.CreateOrderItemRequestDTO;
 import order.dto.CreateOrderRequestDTO;
 import order.dto.OrderDetailsReponseDTO;
+import order.mapper.OrderMapper;
 import order.model.Order;
 import order.model.OrderItem;
 import order.repository.OrderRepository;
@@ -16,9 +17,11 @@ import java.util.List;
 public class OrderService {
 
     private OrderRepository orderRepository;
+    private OrderMapper orderMapper;
 
     public OrderService(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
+        this.orderMapper = new OrderMapper();
     }
 
     //Por agora aceita qualquer order. Não importa se há stock ou se o payment foi validado
@@ -30,18 +33,12 @@ public class OrderService {
         order.setOrderPrice(calculateOrderPrice(order));
         orderRepository.save(order);
 
-        return new OrderDetailsReponseDTO(order.getOrderPrice());
+        return orderMapper.toResponseDTO(order);
     }
 
     private void addOrderItems(Order order, List<CreateOrderItemRequestDTO> orderItems) {
         for(CreateOrderItemRequestDTO itemRequest : orderItems){
-            OrderItem orderItem = new OrderItem();
-
-            orderItem.setProductId(itemRequest.productId());
-            orderItem.setName(itemRequest.name());
-            orderItem.setPrice(itemRequest.price());
-            orderItem.setQuantity(itemRequest.quantity());
-
+            OrderItem orderItem = orderMapper.toOrderItem(itemRequest);
             order.addOrderItem(orderItem);
         }
     }
