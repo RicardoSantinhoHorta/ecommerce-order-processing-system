@@ -2,6 +2,7 @@ package order.mapper;
 
 import order.dto.CreateOrderItemRequestDTO;
 import order.dto.OrderDetailsReponseDTO;
+import order.event.OrderCreatedEvent;
 import order.model.Order;
 import order.model.OrderItem;
 import org.springframework.stereotype.Component;
@@ -22,5 +23,9 @@ public class OrderMapper {
 
     public OrderDetailsReponseDTO toResponseDTO(Order order){
         return new OrderDetailsReponseDTO(order.getOrderPrice());
+    }
+
+    public OrderCreatedEvent toOrderCreatedEvent(Order order){
+        return new OrderCreatedEvent(order.getId(),  order.getOrderPrice());
     }
 }
