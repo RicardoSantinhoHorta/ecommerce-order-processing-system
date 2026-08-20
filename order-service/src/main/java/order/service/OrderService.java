@@ -3,7 +3,10 @@ package order.service;
 import order.dto.CreateOrderItemRequestDTO;
 import order.dto.CreateOrderRequestDTO;
 import order.dto.OrderDetailsReponseDTO;
-import order.enums.OrderState;import order.mapper.OrderMapper;
+import order.enums.OrderState;
+import order.event.OrderCreatedEvent;
+import order.mapper.OrderMapper;
+import order.messaging.OrderEventProducer;
 import order.model.Order;
 import order.model.OrderItem;
 import order.repository.OrderRepository;
@@ -18,10 +21,15 @@ public class OrderService {
 
     private OrderRepository orderRepository;
     private OrderMapper orderMapper;
+    private OrderEventProducer orderEventProducer;
 
-    public OrderService(OrderRepository orderRepository) {
+    public OrderService(OrderRepository orderRepository,
+                        OrderMapper orderMapper,
+                        OrderEventProducer orderEventProducer) {
+
         this.orderRepository = orderRepository;
-        this.orderMapper = new OrderMapper();
+        this.orderMapper = orderMapper;
+        this.orderEventProducer = orderEventProducer;
     }
 
     //Por agora aceita qualquer order. Não importa se há stock ou se o payment foi validado
@@ -32,6 +40,10 @@ public class OrderService {
         addOrderItems(order, request.orderItems());
         order.setOrderPrice(order.calculateOrderPrice(order));
         orderRepository.save(order);
+
+        //Mete em event e manda para o kafka
+        OrderCreatedEvent event = orderMapper.toOrderCreatedEvent(order);
+        orderEventProducer.publishOrderCreated(event);
 
         return orderMapper.toResponseDTO(order);
     }
