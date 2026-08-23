@@ -1,5 +1,7 @@
 package order.service;
 
+import order.mapper.OrderMapper;
+import order.messaging.OrderEventProducer;
 import order.model.Order;
 import order.model.OrderItem;
 import order.repository.OrderRepository;
@@ -15,13 +17,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class OrderServiceTest {
 
-    private OrderService orderService;
     private OrderRepository orderRepository;
+    private OrderMapper orderMapper;
+    private OrderEventProducer orderEventProducer;
+    private OrderService orderService;
 
     @BeforeEach
     void setUp() {
         orderRepository = mock(OrderRepository.class);
-        orderService = new OrderService(orderRepository);
+        orderMapper = mock(OrderMapper.class);
+        orderEventProducer = mock(OrderEventProducer.class);
+
+        orderService = new OrderService(orderRepository, orderMapper, orderEventProducer);
 
     }
 
@@ -43,7 +50,7 @@ class OrderServiceTest {
 
         order.setOrderItems(orderItems);
 
-        BigDecimal result = orderService.calculateOrderPrice(order);
+        BigDecimal result = order.calculateOrderPrice(order);
 
         assertEquals(70, result.doubleValue());
 
@@ -67,7 +74,7 @@ class OrderServiceTest {
 
         order.setOrderItems(orderItems);
 
-        BigDecimal result = orderService.calculateOrderPrice(order);
+        BigDecimal result = order.calculateOrderPrice(order);
 
         assertEquals(115, result.doubleValue());
 
@@ -91,7 +98,7 @@ class OrderServiceTest {
 
         order.setOrderItems(orderItems);
 
-        BigDecimal result = orderService.calculateOrderPrice(order);
+        BigDecimal result = order.calculateOrderPrice(order);
 
         assertEquals(0, result.doubleValue());
 
@@ -115,7 +122,7 @@ class OrderServiceTest {
 
         order.setOrderItems(orderItems);
 
-        BigDecimal result = orderService.calculateOrderPrice(order);
+        BigDecimal result = order.calculateOrderPrice(order);
 
         assertEquals(50, result.doubleValue());
 
