@@ -1,7 +1,7 @@
 package order.mapper;
 
 import order.dto.CreateOrderItemRequestDTO;
-import order.dto.OrderDetailsReponseDTO;
+import order.dto.OrderDetailsResponseDTO;
 import order.event.OrderCreatedEvent;
 import order.model.Order;
 import order.model.OrderItem;
@@ -21,8 +21,8 @@ public class OrderMapper {
         return orderItem;
     }
 
-    public OrderDetailsReponseDTO toResponseDTO(Order order){
-        return new OrderDetailsReponseDTO(order.getOrderPrice());
+    public OrderDetailsResponseDTO toResponseDTO(Order order){
+        return new OrderDetailsResponseDTO(order.getOrderPrice());
     }
 
     public OrderCreatedEvent toOrderCreatedEvent(Order order){

@@ -1,6 +1,7 @@
 package order.controller;
 
-import order.dto.CreateOrderRequestDTO;import order.dto.OrderDetailsReponseDTO;
+import order.dto.CreateOrderRequestDTO;
+import order.dto.OrderDetailsResponseDTO;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +18,7 @@ public class OrderController {
     }
 
     @PostMapping("/orders")
-    public OrderDetailsReponseDTO createOrder(@Valid @RequestBody CreateOrderRequestDTO request) {
+    public OrderDetailsResponseDTO createOrder(@Valid @RequestBody CreateOrderRequestDTO request) {
         return orderService.createOrder(request);
     }
 }

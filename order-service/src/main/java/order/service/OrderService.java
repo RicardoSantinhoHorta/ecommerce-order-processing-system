@@ -2,7 +2,7 @@ package order.service;
 
 import order.dto.CreateOrderItemRequestDTO;
 import order.dto.CreateOrderRequestDTO;
-import order.dto.OrderDetailsReponseDTO;
+import order.dto.OrderDetailsResponseDTO;
 import order.enums.OrderState;
 import order.event.OrderCreatedEvent;
 import order.mapper.OrderMapper;
@@ -34,7 +34,7 @@ public class OrderService {
 
     //Por agora aceita qualquer order. Não importa se há stock ou se o payment foi validado
     @Transactional
-    public OrderDetailsReponseDTO createOrder(CreateOrderRequestDTO request) {
+    public OrderDetailsResponseDTO createOrder(CreateOrderRequestDTO request) {
         Order order = new Order();
 
         addOrderItems(order, request.orderItems());
