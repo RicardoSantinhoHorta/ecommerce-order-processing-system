@@ -5,5 +5,5 @@ import payment.enums.PaymentResult;
 import java.math.BigDecimal;
 
 public interface PaymentGateway {
-    PaymentResult processPayment(String paymentToken, BigDecimal amount);
+    PaymentResult processPayment(String paymentToken);
 }

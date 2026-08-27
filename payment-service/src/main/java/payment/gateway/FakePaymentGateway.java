@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 public class FakePaymentGateway implements PaymentGateway {
 
     @Override
-    public PaymentResult processPayment(String paymentToken, BigDecimal amount) {
+    public PaymentResult processPayment(String paymentToken) {
         if(paymentToken.equals("CARD_ACCEPTED")){
             return PaymentResult.ACCEPTED;
         }
