@@ -30,11 +30,9 @@ public class Order {
     private BigDecimal orderPrice;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private OrderState  orderState = OrderState.PENDING_PAYMENT;
     //Quando a order é criada, começa sempre com pending payment. se falhar, não é criada.
-
-    @Enumerated(EnumType.STRING)
-    private PaymentMethod paymentMethod;
 
     @CreationTimestamp //Assim não precisamos de meter setter no service
     private LocalDateTime createdAt;
