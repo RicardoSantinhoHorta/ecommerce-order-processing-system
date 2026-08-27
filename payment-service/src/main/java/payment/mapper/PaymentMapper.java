@@ -6,8 +6,17 @@ import order.event.OrderCreatedEvent;
 import order.model.Order;
 import order.model.OrderItem;
 import org.springframework.stereotype.Component;
+import payment.model.Payment;
 
 @Component
 public class PaymentMapper {
 
+    public Payment createPendingPayment(OrderCreatedEvent event) {
+        Payment payment = new Payment();
+
+        payment.setOrderId(event.orderId());
+        payment.setAmount(event.totalPrice());
+
+        return payment;
+    }
 }
