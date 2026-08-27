@@ -14,6 +14,4 @@ public record ProcessPaymentRequestDTO(
         @NotNull(message = "Amount is required")
         @Positive(message = "Amount must be greater than 0")
         BigDecimal amount){
-
-
 }

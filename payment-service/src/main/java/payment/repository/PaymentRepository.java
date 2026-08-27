@@ -1,7 +1,8 @@
-package order.repository;
+package payment.repository;
 
 import order.model.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
+import payment.model.Payment;
 
-public interface OrderRepository extends JpaRepository<Order,Long> {
+public interface PaymentRepository extends JpaRepository<Payment,Long> {
 }
