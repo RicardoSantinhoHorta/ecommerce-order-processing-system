@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 
-public record PerformPaymentRequestDTO(
+public record ProcessPaymentRequestDTO(
         @NotNull(message = "ID is required")
         @NotBlank(message = "ID cannot be blank")
         Long id,
@@ -14,4 +14,6 @@ public record PerformPaymentRequestDTO(
         @NotNull(message = "Amount is required")
         @Positive(message = "Amount must be greater than 0")
         BigDecimal amount){
+
+
 }
