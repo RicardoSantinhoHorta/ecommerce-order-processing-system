@@ -3,6 +3,11 @@ package payment.dto;
 
 import order.enums.OrderState;
 import payment.enums.PaymentMethod;
+import payment.enums.PaymentResult;
 
-public record PaymentDetailsResponseDTO(OrderState orderState, PaymentMethod paymentMethod) {
+import java.math.BigDecimal;
+
+public record PaymentDetailsResponseDTO(BigDecimal amount,
+                                        PaymentMethod paymentMethod,
+                                        PaymentResult paymentResult) {
 }

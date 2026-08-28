@@ -2,16 +2,15 @@ package payment.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Positive;import payment.enums.PaymentMethod;
 
 import java.math.BigDecimal;
 
 public record ProcessPaymentRequestDTO(
         @NotNull(message = "ID is required")
         @NotBlank(message = "ID cannot be blank")
-        Long id,
+        Long orderId,
 
-        @NotNull(message = "Amount is required")
-        @Positive(message = "Amount must be greater than 0")
-        BigDecimal amount){
+        PaymentMethod paymentMethod,
+        String token){
 }

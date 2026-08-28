@@ -6,6 +6,7 @@ import order.event.OrderCreatedEvent;
 import order.model.Order;
 import order.model.OrderItem;
 import org.springframework.stereotype.Component;
+import payment.dto.PaymentDetailsResponseDTO;
 import payment.model.Payment;
 
 @Component
@@ -18,5 +19,11 @@ public class PaymentMapper {
         payment.setAmount(event.totalPrice());
 
         return payment;
+    }
+
+    public PaymentDetailsResponseDTO toResponseDTO(Payment payment){
+        return new PaymentDetailsResponseDTO(payment.getAmount(),
+                payment.getPaymentMethod(),
+                payment.getPaymentResult());
     }
 }
